@@ -98,6 +98,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracker.cs" />
+    <Compile Include="TrackerTM.cs" />
     <Compile Include="VimbaLib.cs" />
     <EmbeddedResource Include="ControlForm.resx">
       <DependentUpon>ControlForm.cs</DependentUpon>

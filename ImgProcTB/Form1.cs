@@ -21,6 +21,7 @@ namespace ImgProcTB
     {
         ControlForm controlForm;
         public Tracker tracker;
+        public TrackerTM trackerTM;
 
         VimbaLib vimba;
         VideoCapture capture;
@@ -31,12 +32,13 @@ namespace ImgProcTB
             InitializeComponent();
 
             tracker = new Tracker();
+            trackerTM = new TrackerTM();
 
-            
+
 
             controlForm = new ControlForm(this);
             controlForm.Show(this);
-            controlForm.propertyGrid.SelectedObject = tracker;
+            controlForm.propertyGrid.SelectedObject = trackerTM;
 
            // capture = new VideoCapture(0, VideoCapture.API.Pvapi);// "K:\\Projects\\Util\\ImgProcTB\\video.avi"); //create a camera captue
            //            capture.ImageGrabbed += Capture_ImageGrabbed;
@@ -56,7 +58,7 @@ namespace ImgProcTB
 
 
 
-            Console.WriteLine("Frame status complete");
+           // Console.WriteLine("Frame status complete");
             Bitmap bitmap = new Bitmap((int)frame.Width, (int)frame.Height, PixelFormat.Format24bppRgb);
             frame.Fill(ref bitmap);
 
@@ -69,12 +71,13 @@ namespace ImgProcTB
         {
             if (m_init == true)
             {
-                tracker.Init(bitmap);
+                //tracker.Init(bitmap);
+                trackerTM.Init(bitmap);
                 m_init = false;
             }
 
-            tracker.Track(bitmap);
-
+            trackerTM.Track(bitmap);
+            //tracker.Track(bitmap);
         }
 
         private void Capture_ImageGrabbed(object sender, EventArgs e)
