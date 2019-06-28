@@ -60,8 +60,24 @@ namespace ImgProcTB
             Mat m = new Mat(bm.Height, bm.Width, Emgu.CV.CvEnum.DepthType.Cv8U, 3, bmpData.Scan0, bmpData.Stride);
 
             Rectangle searchRoi = new Rectangle();// TmplRoi.Location, TmplRoi.Size);
+            searchRoi.Size = new Size(TmplRoi.Width + 2 * searchDist, TmplRoi.Height + 2 * searchDist);
             searchRoi.Location = new Point(TmplRoi.X - searchDist, TmplRoi.Y - searchDist);
-            searchRoi.Size = new Size(TmplRoi.Width+2*searchDist, TmplRoi.Height+2*searchDist);
+            
+
+            if (searchRoi.Left < 0)
+                searchRoi.Location = new Point(0, searchRoi.Location.Y);
+
+            if (searchRoi.Location.Y < 0)
+                searchRoi.Location = new Point(searchRoi.Location.X, 0);
+
+            if (searchRoi.Right > 1280)
+                searchRoi.Location = new Point(1280-searchRoi.Width-1, searchRoi.Location.Y);
+
+            if (searchRoi.Bottom > 960)
+                searchRoi.Location = new Point(searchRoi.Location.X, 960-searchRoi.Height-1);
+
+
+            
 
             int resultCols = m.Cols - searchRoi.Width + 1;
             int resultRows = m.Rows - searchRoi.Height + 1;
